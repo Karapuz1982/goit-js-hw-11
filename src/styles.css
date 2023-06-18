@@ -63,7 +63,7 @@ button[type="submit"] {
     height: auto;
 }
 
-/* .load-more-container {
+.load-more-container {
     text-align: center;
     margin-top: 20px;
 }
@@ -81,4 +81,4 @@ button[type="submit"] {
 
 .load-more:hover {
     background-color: #1b9c57;
-} */
+}

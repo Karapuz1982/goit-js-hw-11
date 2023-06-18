@@ -15,6 +15,7 @@
       <form class="search-form" id="search-form">
         <input
           type="text"
+          id="search-input"
           name="searchQuery"
           autocomplete="off"
           placeholder="Search images..."
@@ -24,9 +25,8 @@
     </header>
 
     <div class="gallery"></div>
-    <!-- <div class="load-more-container">
-      <button class="load-more">Load More</button>
-    </div> -->
+    <button type="button" class="load-more is-hidden">Load more</button>
+    <!-- <button type="button" class="load-more">Load more</button> -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/notiflix@2.7.0/dist/notiflix-aio-2.7.0.min.js"></script>
