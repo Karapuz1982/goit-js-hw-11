@@ -37,4 +37,17 @@ const lightbox = new SimpleLightbox('.gallery a');
   const gallery = document.querySelector('.gallery');
   gallery.innerHTML = '';
 }
+function handleScroll() {
+  const windowHeight = window.innerHeight;
+  const documentHeight = document.documentElement.scrollHeight;
+  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+  const isEndOfPage = scrollTop + windowHeight >= documentHeight;
+
+  if (isEndOfPage && currentQuery !== '' && currentPage > 1 && loadMoreBtn.style.display !== 'none') {
+    loadMoreBtn.style.display = 'block';
+  }
+}
+
+
 export { renderImages, clearGallery };
