@@ -16,7 +16,7 @@ loadMoreBtn.addEventListener('click', loadMoreImages);
 
 async function handleSubmit(event) {
     event.preventDefault();
-   const newQuery = event.target.elements.searchQuery.value.trim(); 
+   const newQuery = searchForm.elements.searchQuery.value.trim(); 
   
   if (newQuery !== currentQuery) {
     currentPage = 1;
@@ -25,7 +25,14 @@ async function handleSubmit(event) {
   error = null;
     totalHits = 0;
    loadMoreBtn.style.display = 'none'; 
-  }  
+    }
+    
+    if (currentQuery === '') {
+    error = new Error('Please enter a search query.');
+    handleErrors();
+        return;
+        
+      }  
   await fetchAndRenderImages(currentQuery, currentPage);
   handleErrors();
 }
@@ -40,11 +47,9 @@ async function fetchAndRenderImages(query, page) {
   try {
     const data = await fetchImages(query, page);
 
-    if (query === '') {
-        error = new Error('Please enter a search query.');
-        loadMoreBtn.style.display = 'none';
-      return;
-    }
+    
+  
+      
 
     if (data.hits.length === 0) {
         error = new Error('Sorry, there are no images matching your search query. Please try again.');
@@ -80,14 +85,24 @@ async function fetchAndRenderImages(query, page) {
   }
 }
 
-function handleIntersection(entries, observer) {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
-      observer.unobserve(entry.target);
-    }
-  });
+// function handleIntersection(entries, observer) {
+//   entries.forEach((entry) => {
+//     if (entry.isIntersecting) {
+//       Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+//       observer.unobserve(entry.target);
+//     }function handleIntersection(entries, observer) {
+ function handleIntersection(entries, observer) {
+  const lastEntry = entries[entries.length - 1];
+  if (lastEntry.isIntersecting) {
+    Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+    observer.unobserve(lastEntry.target);
+  }
 }
+
+
+
+  
+
 
 function handleErrors() {
   if (error) {
